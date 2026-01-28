@@ -177,3 +177,327 @@ nav a:focus-visible {
     transform: translateY(-2px);
     background-color: rgba(15, 23, 42, 0.04);
 }
+
+/* Evolution Section - Timeline Design */
+.evolution {
+    padding: 120px 0;
+    background-color: #ffffff;
+    overflow: hidden;
+    /* For any decorative elements */
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0f172a;
+    text-align: center;
+    margin-bottom: 96px;
+    /* Increased for timeline space */
+    letter-spacing: -0.02em;
+}
+
+.evolution-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    /* Remove gap to control line spacing better manually if needed, but grid gap is fine if we position line */
+    position: relative;
+    counter-reset: stage-counter;
+}
+
+/* The horizontal connecting line */
+.evolution-grid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Starts at the center of the first item roughly */
+    right: 0;
+    height: 2px;
+    background-color: #e2e8f0;
+    z-index: 1;
+    /* Adjust these to align with the numbers */
+    margin: 0 12.5%;
+    /* Half of a column (25% / 2) to center the line start/end points */
+}
+
+.stage {
+    display: flex;
+    flex-direction: column;
+    padding: 48px 24px 24px 24px;
+    /* Top padding for the number */
+    position: relative;
+    counter-increment: stage-counter;
+    transition: transform 0.3s ease;
+    border-right: 1px solid transparent;
+    /* Placeholder for layout stability */
+}
+
+/* The Step Number Circle */
+.stage::before {
+    content: "0" counter(stage-counter);
+    position: absolute;
+    top: -20px;
+    /* Aligns with the line */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.stage:hover {
+    transform: translateY(-8px);
+    z-index: 5;
+}
+
+.stage:hover::before {
+    border-color: #0f172a;
+    color: #0f172a;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
+    transform: translateX(-50%) translateY(8px);
+    /* Pin to timeline */
+}
+
+/* Text Styling */
+.stage-label {
+    display: none;
+    /* Hide the old "Stage 1" label as numbers are now prominent */
+}
+
+.stage-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+    text-align: center;
+    line-height: 1.35;
+}
+
+.stage-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #0f172a;
+    text-align: center;
+}
+
+/* Responsive Timeline (Vertical) */
+@media (max-width: 1024px) {
+    .evolution-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-left: 24px;
+        /* Space for vertical line */
+    }
+
+    .evolution-grid::before {
+        width: 2px;
+        height: 100%;
+        left: 24px;
+        /* Align with left side */
+        top: 0;
+        right: auto;
+        margin: 0;
+        bottom: 0;
+    }
+
+    .stage {
+        padding: 0 0 0 48px;
+        /* Left padding for content next to line */
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .stage::before {
+        left: 4px;
+        /* Align with the vertical line */
+        top: 0;
+        transform: none;
+        /* Remove centering transform */
+    }
+
+    .stage:hover::before {
+        transform: none;
+        /* Mobile: move with the card */
+    }
+
+    .stage-title,
+    .stage-description {
+        text-align: left;
+    }
+}
+
+/* Risk Escalation Section (Focus Stream) */
+.risk-stream-section {
+    padding: 140px 0;
+    background-color: #ffffff;
+}
+
+.risk-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+    margin-bottom: 100px;
+    letter-spacing: -0.03em;
+}
+
+.risk-stream {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.risk-item {
+    display: flex;
+    gap: 48px;
+    padding-bottom: 80px;
+    position: relative;
+}
+
+.risk-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Marker Column */
+.risk-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.risk-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #cbd5e1;
+    /* Subtle slate */
+    line-height: 1;
+    z-index: 2;
+    background-color: #ffffff;
+    padding: 10px 0;
+    /* Clear line behind it */
+    display: flex;
+    justify-content: center;
+}
+
+/* Connection Line */
+.risk-line {
+    width: 2px;
+    flex-grow: 1;
+    background-color: #f1f5f9;
+    position: absolute;
+    top: 40px;
+    bottom: -40px;
+    /* Connect to next number */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.risk-item:last-child .risk-line {
+    display: none;
+}
+
+/* Content */
+.risk-content {
+    padding-top: 0;
+}
+
+.risk-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.risk-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #64748b;
+    max-width: 460px;
+}
+
+/* Escalation Logic (Typography & Opacity) */
+
+/* Stage 1: Stable - Calm, Balanced */
+.risk-item:nth-child(1) .risk-title {
+    font-weight: 600;
+}
+
+/* Stage 2: Hidden - Subtle Variance */
+.risk-item:nth-child(2) .risk-title {
+    color: #334155;
+}
+
+.risk-item:nth-child(2) .risk-line {
+    background-color: #e2e8f0;
+    /* Slightly darker line start */
+}
+
+/* Stage 3: Rapid Degradation - Visible shift */
+.risk-item:nth-child(3) .risk-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.risk-item:nth-child(3) .risk-line {
+    background-color: #cbd5e1;
+    /* Darkening line */
+}
+
+/* Stage 4: Critical Failure - Maximum Contrast */
+.risk-item:nth-child(4) .risk-item {
+    padding-bottom: 0;
+}
+
+.risk-item:nth-child(4) .risk-number {
+    color: #0f172a;
+    /* Dark number */
+}
+
+.risk-item:nth-child(4) .risk-title {
+    font-size: 2rem;
+    /* Larger */
+    letter-spacing: -0.02em;
+    color: #0f172a;
+}
+
+.risk-item:nth-child(4) .risk-desc {
+    color: #0f172a;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .risk-stream {
+        padding: 0 24px;
+    }
+
+    .risk-item {
+        gap: 24px;
+        padding-bottom: 60px;
+    }
+
+    .risk-title {
+        font-size: 1.5rem;
+    }
+
+    .risk-item:nth-child(4) .risk-title {
+        font-size: 1.75rem;
+    }
+}
